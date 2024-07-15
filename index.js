@@ -13,7 +13,7 @@ app.use(cors())
 
 app.use("/express", router);
 
-const port = process.env.DB_PORT ;
+const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
   res.send("Hello World");
