@@ -37,6 +37,8 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
+      sequelize,
+      modelName: "Category",
       hooks: {
         afterValidate: (category, options) => {
           if (category.name) {
@@ -44,8 +46,6 @@ module.exports = (sequelize, DataTypes) => {
           }
         },
       },
-      sequelize,
-      modelName: "Category",
     }
   );
   return Category;
