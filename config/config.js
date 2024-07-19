@@ -6,7 +6,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     host: process.env.DB_HOST,
-    port: process.env.PORT || 34920, 
+    port: process.env.PORT, 
     dialect: process.env.DB_CONNECTION,
     dialectOptions: {
       connectTimeout: 60000 
@@ -17,7 +17,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     host: process.env.DB_HOST,
-    port: process.env.PORT || 34920, 
+    port: process.env.PORT, 
     dialect: process.env.DB_CONNECTION,
     dialectOptions: {
       connectTimeout: 60000 
@@ -28,7 +28,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     host: process.env.DB_HOST,
-    port: process.env.PORT || 34920, 
+    port: process.env.PORT, 
     dialect: process.env.DB_CONNECTION,
     dialectOptions: {
       connectTimeout: 60000 
