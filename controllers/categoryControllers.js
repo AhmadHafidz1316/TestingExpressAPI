@@ -11,7 +11,7 @@ exports.getCategory = async (req, res) => {
         data: null,
       });
     }
-
+    
     return res.status(200).json({
       status: 200,
       message: "Data",
