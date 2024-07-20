@@ -53,6 +53,8 @@ Seed your data to your Database
 
 ## You can see the routes in routes/routes.js
 
+## And you can see the complete Sequelize right here https://sequelize.org/
+
 
 
 
