@@ -79,12 +79,7 @@ exports.updateCategory = async (req, res) => {
 
     const idCategory = await Category.findByPk(id);
 
-    if (!idCategory) {
-      return res.status(404).json({
-        status: 404,
-        message: "Data Not Found",
-      });
-    }
+    // y
 
     await Category.update(req.body, {
       where: {

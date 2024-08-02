@@ -1,12 +1,33 @@
-require('dotenv').config();
+require("dotenv").config();
 const { User } = require("../models");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
-const signToken = id => {
-    return jwt.sign({id}, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRES_IN
-    })
-}
+const signToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
+};
+
+const createSendToken = (user, statusCode, res) => {
+  const token = signToken(user.id);
+
+  const cookieOption = {
+    expire: new Date(
+      Date.now() + process.env.JWT_COOKIES_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+  };
+
+  res.cookie("jwt", token, cookieOption);
+
+  res.status(statusCode).json({
+    status: "Success",
+    token,
+    data: {
+      user,
+    },
+  });
+};
 
 exports.registerUser = async (req, res) => {
   try {
@@ -30,11 +51,7 @@ exports.registerUser = async (req, res) => {
       password: req.body.password,
     });
 
-    return res.status(201).json({
-      status: 201,
-      message: "User Created Successfully !!",
-      data: newUser,
-    });
+    createSendToken(newUser, 201, res);
   } catch (error) {
     // console.log(error);
     return res.status(400).json({
@@ -46,26 +63,26 @@ exports.registerUser = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-    if (!req.body.email || !req.body.password) {
-        return res.status(400).json({
-            status: 400,
-            message: ["Your Email or Password is Empty !!!"]
-        })
-    }
+  if (!req.body.email || !req.body.password) {
+    return res.status(400).json({
+      status: 400,
+      message: ["Your Email or Password is Empty !!!"],
+    });
+  }
 
-    const userData = await User.findOne({ where : {email : req.body.email}})
+  const userData = await User.findOne({ where: { email: req.body.email } });
 
-    if (!userData || !(await userData.CorrectPassword(req.body.password, userData.password))) {
-        return res.status(400).json({
-            status: 400,
-            message: ["Invalid Email or Password "]
-        })
-    }
+  if (
+    !userData ||
+    !(await userData.CorrectPassword(req.body.password, userData.password))
+  ) {
+    return res.status(400).json({
+      status: 400,
+      message: ["Invalid Email or Password "],
+    });
+  }
 
-    const token = signToken(userData.id)
-    return res.status(200).json({
-        status: 200,
-        message: "Login Successfully !!! ",
-        token : token
-    })
+  createSendToken(userData, 200, res);
 };
+
+
