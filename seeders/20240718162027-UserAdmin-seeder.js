@@ -25,6 +25,24 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date()
         },
+        {
+          id : v4(),
+          name: "Ahmad Hafidz Rino Putra",
+          email : "ahmadhafidzrinoputra1312@gmail.com",
+          password : Bcrypt.hashSync('12345678', salt),
+          role_id: adminId,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          id : v4(),
+          name: "Salma Hayya Rahman",
+          email : "salmahayyarahman16@gmail.com",
+          password : Bcrypt.hashSync('12345678', salt),
+          role_id: adminId,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
       ],
       {}
     );
